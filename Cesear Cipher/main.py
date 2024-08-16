@@ -34,7 +34,7 @@ print(decrypt)
 def decryptword(word, code):
     decrypted = ""
 
-    for char in decryptword:
+    for char in word:
         if char != " ":
             indexofword = alphabets.index(char.upper())
             newindex = indexofword - code
@@ -50,7 +50,7 @@ def decryptword(word, code):
     return decrypted
 
 
-# decryptword(decrypt, 4)
+print(decryptword(decrypt, 4))
 
 
 

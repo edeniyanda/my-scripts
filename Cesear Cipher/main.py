@@ -1,48 +1,37 @@
 alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
-word = "The Romans are coming tomorrow to destroy you"
-code = 4
 
-
-def encryptword(word, code):
+def encrypt_word(word, code):
     encrypted = ""
 
     for char in word:
         if char != " ":
-            indexofword = alphabets.index(char.upper())
-            if indexofword + code >= len(alphabets):
-                newindex = (indexofword+code)- len(alphabets)
+            original_index = alphabets.index(char.upper())
+            if original_index + code >= len(alphabets):
+                new_index = (original_index+code)- len(alphabets)
             else:
-                newindex = indexofword+code
-            encryptedchar = alphabets[newindex]
+                new_index = original_index+code
+            encryptedchar = alphabets[new_index]
             if char.islower():
                 encryptedchar = encryptedchar.lower()
-            else:
-                encryptedchar = encryptedchar.upper()
             encrypted = encrypted + encryptedchar
         else:
             encrypted = encrypted + char
 
     return encrypted
     
-print("Encrypted word", encryptword(word, 4))
 
-decrypt = encryptword(word, 4)
-print(decrypt)
-
-def decryptword(word, code):
+def decrypt_word(word, code):
     decrypted = ""
 
     for char in word:
         if char != " ":
-            indexofword = alphabets.index(char.upper())
-            newindex = indexofword - code
+            original_index = alphabets.index(char.upper())
+            newindex = original_index - code
             decryptedchar = alphabets[newindex]
             if char.islower():
                 decryptedchar = decryptedchar.lower()
-            else:
-                decryptedchar = decryptedchar.upper()
             decrypted = decrypted + decryptedchar
         else:
             decrypted = decrypted + char
@@ -50,7 +39,31 @@ def decryptword(word, code):
     return decrypted
 
 
-print(decryptword(decrypt, 4))
+print("Welcome to the Encryption and Decryption Program!")
+print("You can encrypt or decrypt any message you want.")
+print("Type 'Q' at any time to quit.")
 
 
+while True:
+    action = input("\nWould you like to (E)ncrypt or (D)ecrypt a message? ").upper()
+        
+    if action == 'Q':
+        print("Goodbye!")
+        break
+    elif action not in ['E', 'D']:
+        print("Invalid choice. Please enter 'E' to encrypt, 'D' to decrypt, or 'Q' to quit.")
+        continue
+    
+    word = input("Enter the word or sentence: ")
+    try:
+        code = int(input("Enter the code (a number) to use for encryption/decryption: "))
+    except ValueError:
+        print("Invalid input. Please enter a valid number for the code.")
+        continue
 
+    if action == 'E':
+        encrypted_message = encrypt_word(word, code)
+        print(f"Encrypted Message: {encrypted_message}")
+    elif action == 'D':
+        decrypted_message = decrypt_word(word, code)
+        print(f"Decrypted Message: {decrypted_message}")
